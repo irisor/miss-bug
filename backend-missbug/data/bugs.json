@@ -9,12 +9,16 @@
             "critical",
             "need-CR",
             "dev-branch"
-        ]
+        ],
+        "creator": {
+            "_id": "u101",
+            "fullname": "Puki Ja"
+        }
     },
     {
         "_id": "def456",
         "title": "Cannot update a Car",
-        "severity": 4,
+        "severity": 0,
         "createdAt": 1542107359456,
         "labels": [
             "high-priority",
@@ -25,12 +29,16 @@
     {
         "_id": "ghi789",
         "title": "Cannot delete a Car",
-        "severity": 4,
+        "severity": 0,
         "createdAt": 1542107359457,
         "description": "bbb",
         "labels": [
             "to-verify"
-        ]
+        ],
+        "creator": {
+            "_id": "u101",
+            "fullname": "Puki Ja"
+        }
     },
     {
         "_id": "pqr678",
@@ -159,5 +167,11 @@
         ],
         "_id": "5CgZJg",
         "CreatedAt": 1722025014821
+    },
+    {
+        "title": null,
+        "severity": 0,
+        "_id": "GTSw5k",
+        "CreatedAt": 1722623867131
     }
 ]

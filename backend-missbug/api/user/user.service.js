@@ -9,6 +9,7 @@ export const userService = {
     getById,
     remove,
     save,
+    getByUsername,
 }
 
 
@@ -65,4 +66,15 @@ function _saveUsersToFile() {
             resolve()
         })
     })
+}
+
+async function getByUsername(username) {
+    try {
+        const user = users.find(user => user.username === username)
+        // if (!user) throw `User not found by username : ${username}`
+        return user
+    } catch (err) {
+        loggerService.error('userService[getByUsername] : ', err)
+        throw err
+    }
 }

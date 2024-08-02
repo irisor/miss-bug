@@ -4,15 +4,15 @@
         "username": "puki",
         "fullname": "Puki Ja",
         "password": "secret1",
-        "score": 95,
-        "isAdmin": true
+        "score": 95
     },
     {
         "_id": "u102",
         "username": "muki",
         "fullname": "Muki Ba",
         "password": "secret2",
-        "score": 88
+        "score": 88,
+        "isAdmin": true
     },
     {
         "_id": "u103",
@@ -44,5 +44,12 @@
         "password   ": "secret3",
         "score": 100,
         "password": ""
+    },
+    {
+        "username": "iris",
+        "password": "$2b$10$c3iMq5bFYz.MDlcyZylexuxSdbQytKlFfFbDsLCuZxwtE9GPc0QVq",
+        "fullname": "iris",
+        "_id": "hoMUhl",
+        "CreatedAt": 1722627106166
     }
 ]

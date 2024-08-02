@@ -32,9 +32,10 @@ export async function getBug(req, res) {
 }
 
 export async function removeBug(req, res) {
+    const { loggedinUser } = req
     const { bugId } = req.params
     try {
-        await bugService.remove(bugId)
+        await bugService.remove(bugId, loggedinUser)
         res.send('Bug Deleted')
     } catch (err) {
         console.log('err:', err)
@@ -43,10 +44,11 @@ export async function removeBug(req, res) {
 }
 
 export async function addBug(req, res) {
+    const { loggedinUser } = req
     const { title, severity, description, labels } = req.body
     const bugToSave = { title, severity: +severity, description, labels }
     try {
-        const savedBug = await bugService.save(bugToSave)
+        const savedBug = await bugService.save(bugToSave, loggedinUser)
         res.send(savedBug)
     } catch (err) {
         console.log('err:', err)
@@ -55,10 +57,11 @@ export async function addBug(req, res) {
 }
 
 export async function updateBug(req, res) {
+    const { loggedinUser } = req
     const { _id, title, severity, description, labels } = req.body
     const bugToSave = { _id, title, severity: +severity, description, labels }
     try {
-        const savedBug = await bugService.save(bugToSave)
+        const savedBug = await bugService.save(bugToSave, loggedinUser)
         res.send(savedBug)
     } catch (err) {
         console.log('err:', err)

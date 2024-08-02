@@ -75,10 +75,11 @@ async function getById(bugId) {
     }
 }
 
-async function remove(bugId) {
+async function remove(bugId, loggedinUser) {
     try {
         const bugIdx = bugs.findIndex(bug => bug._id === bugId)
         if (bugIdx === -1) throw `Couldn't remove bug with _id ${bugId}`
+        if(!loggedinUser.isAdmin && bugs[bugIdx].owner?._id !== loggedinUser._id) throw 'Cant remove bug'
         bugs.splice(bugIdx, 1)
         return _saveBugsToFile()
     } catch (err) {
@@ -87,9 +88,10 @@ async function remove(bugId) {
     }
 }
 
-async function save(bugToSave) {
+async function save(bugToSave, loggedinUser) {
     try {
 		if (bugToSave._id) {
+             if(!loggedinUser.isAdmin && bugToSave?.owner?._id !== loggedinUser._id) throw 'Cant update bug'
 			const idx = bugs.findIndex(bug => bug._id === bugToSave._id)
             if (idx === -1) throw `Couldn't update bug with _id ${bugToSave._id}`
             bugs[idx] = {...bugs[idx], ...bugToSave} // update the bug with the new bugToSave
@@ -97,12 +99,13 @@ async function save(bugToSave) {
         } else {
 			bugToSave._id = makeId()
 			bugToSave.CreatedAt = Date.now()
+            bugToSave.owner = loggedinUser
             bugs.push(bugToSave)
         }
         await _saveBugsToFile()
         return bugToSave
     } catch (err) {
-        loggerService.error(`Couldn't get bug`, err);
+        loggerService.error(`Couldn't update bug`, err);
         throw err
     }
 }
