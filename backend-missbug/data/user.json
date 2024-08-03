@@ -58,5 +58,14 @@
         "fullname": "aaa",
         "_id": "dmpCg2",
         "score": 7
+    },
+    {
+        "username": "ccc",
+        "password": "$2b$10$YW2AjgIvBKxx8V9jK61A5OpwpTa47hmAfJRqqyiOMhlVO/ukPF4TG",
+        "fullname": "ccc",
+        "_id": "CG8cRn",
+        "score": 10000,
+        "createdAt": 1722716247694,
+        "imgUrl": "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
     }
 ]
