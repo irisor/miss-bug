@@ -45,7 +45,6 @@ async function save(userToSave) {
             userToSave = users[idx]
         } else {
 			userToSave._id = makeId()
-			userToSave.CreatedAt = Date.now()
             users.push(userToSave)
         }
         await _saveUsersToFile()

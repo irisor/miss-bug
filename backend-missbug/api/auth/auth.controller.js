@@ -2,7 +2,6 @@ import { authService } from './auth.service.js'
 import { loggerService } from './../../services/logger.service.js';
 
 export async function login(req, res) {
-	console.log("CCCCCCCCCCCCCCCC")
     const { username, password } = req.body
     try {
         const user = await authService.login(username, password)
@@ -20,7 +19,6 @@ export async function login(req, res) {
 
 export async function signup(req, res) {
     try {
-		console.log("AAAAAAAAAAAAA")
         const credentials = req.body
             // Never log passwords
             // loggerService.debug(credentials)
@@ -41,7 +39,6 @@ export async function signup(req, res) {
 }
 
 export async function logout(req, res) {
-	console.log("BBBBBBBBBBBBBBB")
     try {
         res.clearCookie('loginToken')
         res.send({ msg: 'Logged out successfully' })

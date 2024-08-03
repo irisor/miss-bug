@@ -1,0 +1,21 @@
+.login-signup {
+    p {
+        margin: 0;
+    }
+
+    button {
+        margin: 0;
+    }
+
+	.login-form {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.login-signup-container {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+}

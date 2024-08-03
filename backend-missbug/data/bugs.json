@@ -2,7 +2,7 @@
     {
         "_id": "abc123",
         "title": "my bug2",
-        "severity": 3,
+        "severity": 5,
         "description": "ccc",
         "createdAt": 1542100000000,
         "labels": [
@@ -10,7 +10,7 @@
             "need-CR",
             "dev-branch"
         ],
-        "creator": {
+        "owner": {
             "_id": "u101",
             "fullname": "Puki Ja"
         }
@@ -35,7 +35,7 @@
         "labels": [
             "to-verify"
         ],
-        "creator": {
+        "owner": {
             "_id": "u101",
             "fullname": "Puki Ja"
         }
@@ -156,22 +156,19 @@
         "CreatedAt": 1722024017648
     },
     {
-        "title": "my bug 8",
-        "severity": 6,
-        "description": "hjghjg",
+        "title": "My Muki bug",
+        "severity": 4,
+        "description": "Muki Muki",
         "labels": [
-            "aaa",
-            " bbb",
-            " ccc",
-            " ddd"
+            "critical"
         ],
-        "_id": "5CgZJg",
-        "CreatedAt": 1722025014821
-    },
-    {
-        "title": null,
-        "severity": 0,
-        "_id": "GTSw5k",
-        "CreatedAt": 1722623867131
+        "owner": {
+            "_id": "u102",
+            "fullname": "Muki Ba",
+            "score": 88,
+            "isAdmin": true
+        },
+        "_id": "JNRgw7",
+        "CreatedAt": 1722702776025
     }
 ]

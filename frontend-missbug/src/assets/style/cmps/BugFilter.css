@@ -1,4 +1,5 @@
 .bug-filter form {
     display: grid;
     grid-template-columns: 100px 200px;
+    row-gap: 10px;
 }

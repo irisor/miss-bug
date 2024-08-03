@@ -25,7 +25,7 @@ async function query(filterBy) {
             bugsToDisplay = bugsToDisplay.filter(bug => regExp.test(bug.title) || regExp.test(bug.description))
         }
 
-		if (filterBy.minSeverity) {
+        if (filterBy.minSeverity) {
             bugsToDisplay = bugsToDisplay.filter(bug => bug.severity >= filterBy.minSeverity)
         }
 
@@ -79,7 +79,7 @@ async function remove(bugId, loggedinUser) {
     try {
         const bugIdx = bugs.findIndex(bug => bug._id === bugId)
         if (bugIdx === -1) throw `Couldn't remove bug with _id ${bugId}`
-        if(!loggedinUser.isAdmin && bugs[bugIdx].owner?._id !== loggedinUser._id) throw 'Cant remove bug'
+        if (!loggedinUser.isAdmin && bugs[bugIdx].owner?._id !== loggedinUser._id) throw 'Cant remove bug'
         bugs.splice(bugIdx, 1)
         return _saveBugsToFile()
     } catch (err) {
@@ -90,15 +90,15 @@ async function remove(bugId, loggedinUser) {
 
 async function save(bugToSave, loggedinUser) {
     try {
-		if (bugToSave._id) {
-             if(!loggedinUser.isAdmin && bugToSave?.owner?._id !== loggedinUser._id) throw 'Cant update bug'
-			const idx = bugs.findIndex(bug => bug._id === bugToSave._id)
+        if (bugToSave._id) {
+            if (!loggedinUser.isAdmin && bugToSave?.owner?._id !== loggedinUser._id) throw 'Cant update bug'
+            const idx = bugs.findIndex(bug => bug._id === bugToSave._id)
             if (idx === -1) throw `Couldn't update bug with _id ${bugToSave._id}`
-            bugs[idx] = {...bugs[idx], ...bugToSave} // update the bug with the new bugToSave
+            bugs[idx] = { ...bugs[idx], ...bugToSave } // update the bug with the new bugToSave
             bugToSave = bugs[idx]
         } else {
-			bugToSave._id = makeId()
-			bugToSave.CreatedAt = Date.now()
+            bugToSave._id = makeId()
+            bugToSave.CreatedAt = Date.now()
             bugToSave.owner = loggedinUser
             bugs.push(bugToSave)
         }
@@ -154,5 +154,5 @@ async function getpdf(req, res) {
     } catch (err) {
         console.log('err:', err);
         res.status(400).send(`Couldn't create pdf`)
-    }	
+    }
 }
