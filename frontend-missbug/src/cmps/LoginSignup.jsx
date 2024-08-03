@@ -13,7 +13,7 @@ export function LoginSignup({ onSignup, onLogin }) {
 
     async function loadUsers() {
         try {
-            const users = await userService.getUsers()
+            const users = await userService.query()
             setUsers(users)
         } catch (err) {
             console.log('Had issues loading users', err);

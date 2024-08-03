@@ -1,8 +1,8 @@
 import Cryptr from 'cryptr'
-import bcrypt from 'bcrypt'
 
 import { userService } from '../user/user.service.js'
 import { loggerService } from '../../services/logger.service.js'
+import { getHashPassword } from '../../services/util.service.js'
 
 const cryptr = new Cryptr(process.env.SECRET1 || 'Secret-Puk-1234')
 
@@ -10,7 +10,7 @@ export const authService = {
     getLoginToken,
     validateToken,
     login,
-    signup
+    signup,
 }
 
 
@@ -53,7 +53,7 @@ async function login(username, password) {
 }
 
 async function signup({ username, password, fullname }) {
-    const saltRounds = 10
+    // const saltRounds = 10
 
     loggerService.debug(`auth.service - signup with username: ${username}, fullname: ${fullname}`)
     if (!username || !password || !fullname) throw 'Missing required signup information'
@@ -61,6 +61,6 @@ async function signup({ username, password, fullname }) {
     const userExist = await userService.getByUsername(username)
     if (userExist) throw 'Username already taken'
     
-    const hash = await bcrypt.hash(password, saltRounds)
+    const hash = await getHashPassword(password)
     return userService.save({ username, password: hash, fullname })
 }

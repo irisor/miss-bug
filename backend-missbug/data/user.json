@@ -2,9 +2,9 @@
     {
         "_id": "u101",
         "username": "puki",
-        "fullname": "Puki Ja",
+        "fullname": "Puki Ja2",
         "password": "secret1",
-        "score": 95
+        "score": 100
     },
     {
         "_id": "u102",
@@ -49,6 +49,14 @@
         "username": "iris",
         "password": "$2b$10$c3iMq5bFYz.MDlcyZylexuxSdbQytKlFfFbDsLCuZxwtE9GPc0QVq",
         "fullname": "iris",
-        "_id": "hoMUhl"
+        "_id": "hoMUhl",
+        "score": 5
+    },
+    {
+        "username": "aaa",
+        "password": "$2b$10$VF9Sy/wAKZH1JqG7JahO4OkooYpS4i1rZIE2wQ0iHQFOmZ9r1oEHi",
+        "fullname": "aaa",
+        "_id": "dmpCg2",
+        "score": 7
     }
 ]

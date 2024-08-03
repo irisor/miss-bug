@@ -1,5 +1,6 @@
 import fs from 'fs'
 import { makeId, readJsonFile } from '../../services/util.service.js'
+import { getHashPassword } from '../../services/util.service.js'
 
 
 const users = readJsonFile('data/user.json')
@@ -41,10 +42,15 @@ async function save(userToSave) {
 		if (userToSave._id) {
 			const idx = users.findIndex(user => user._id === userToSave._id)
             if (idx === -1) throw `Couldn't update user with _id ${userToSave._id}`
+
+            if (users[idx].password !== userToSave.password) {
+                userToSave.password = await getHashPassword(userToSave.password) 
+            }
             users[idx] = {...users[idx], ...userToSave} // update the user with the new userToSave
             userToSave = users[idx]
         } else {
 			userToSave._id = makeId()
+            userToSave.password = await getHashPassword(userToSave.password) 
             users.push(userToSave)
         }
         await _saveUsersToFile()

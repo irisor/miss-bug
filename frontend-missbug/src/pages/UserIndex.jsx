@@ -28,24 +28,6 @@ export function UserIndex() {
     }
   }
 
-  async function onAddUser() {
-    const user = {
-      fullname: prompt('User fullname?'),
-      username: prompt('User username?'),
-      password: prompt('User password?'),
-      score: +prompt('User score?'),
-    }
-    try {
-      const savedUser = await userService.save(user)
-      console.log('Added User', savedUser)
-      setUsers(prevUsers => [...prevUsers, savedUser])
-      showSuccessMsg('User added')
-    } catch (err) {
-      console.log('Error from onAddUser ->', err)
-      showErrorMsg('Cannot add user')
-    }
-  }
-
   async function onEditUser(user) {
     let score = prompt('New score?', user?.score);
     if (score === null) {
@@ -66,7 +48,7 @@ export function UserIndex() {
     const userToSave = { ...user, fullname, username, password, score }
     try {
 
-      const savedUser = await userService.save(userToSave)
+      const savedUser = await userService.update(userToSave)
       setUsers(prevUsers => prevUsers.map((currUser) =>
         currUser._id === savedUser._id ? savedUser : currUser
       ))
@@ -81,7 +63,6 @@ export function UserIndex() {
     <main className="user-index">
       <h1>Users</h1>
       <main>
-        <button className='add-btn' onClick={onAddUser}>Add User ⛐</button>
         <UserList users={users} onRemoveUser={onRemoveUser} onEditUser={onEditUser} />
       </main>
     </main>

@@ -20,8 +20,8 @@ export const userService = {
     signup,
     getLoggedinUser,
     saveLocalUser,
-    
-    getUsers,
+
+    query,
     getById,
     remove,
     update,
@@ -30,7 +30,7 @@ export const userService = {
 
 window.userService = userService
 
-async function getUsers() {
+async function query() {
     const { data: users } = await axios.get(BASE_USER_URL)
     return users
 }
@@ -41,28 +41,28 @@ async function getById(userId) {
 }
 
 async function remove(userId) {
-    return await axios.remove(BASE_USER_URL + userId)
+    const { data: user } = await axios.delete(BASE_USER_URL + userId)
+    return user
 }
 
 async function update(userToUpdate) {
     // const user = await getById(userToUpdate.id)
     // console.log('user', user)
 
-    const updatedUser = await axios.put(BASE_USER_URL, userToUpdate)
+    const { data: updatedUser } = await axios.put(BASE_USER_URL, userToUpdate)
     if (getLoggedinUser().id === updatedUser.id) saveLocalUser(updatedUser)
     return updatedUser
 }
 
 async function login(credentials) {
     const { data: user } = await axios.post(BASE_AUTH_URL + 'login', credentials)
-    
+
     if (user) {
         return saveLocalUser(user)
     }
 }
 
 async function signup(credentials) {
-
     const { data: user } = await axios.post(BASE_AUTH_URL + 'signup', credentials)
     return saveLocalUser(user)
 }

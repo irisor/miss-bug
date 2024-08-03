@@ -2,11 +2,11 @@ import { UserPreview } from './UserPreview'
 
 export function UserList({ users, onRemoveUser, onEditUser }) {
   return (
-    <ul className="user-list">
+    <section className="user-list">
       {users?.map((user) => (
-        <li className="user-preview" key={user._id}>
+        <article className="user-preview" key={user._id}>
           <UserPreview user={user} />
-          <div>
+          <div className="user-actions">
             <button
               onClick={() => {
                 onRemoveUser(user._id)
@@ -22,8 +22,8 @@ export function UserList({ users, onRemoveUser, onEditUser }) {
               Edit
             </button>
           </div>
-        </li>
+        </article>
       ))}
-    </ul>
+    </section>
   )
 }
