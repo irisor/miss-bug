@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { UserPreview } from './UserPreview'
 
 export function UserList({ users, onRemoveUser, onEditUser }) {
@@ -22,6 +23,7 @@ export function UserList({ users, onRemoveUser, onEditUser }) {
               Edit
             </button>
           </div>
+          <Link to={`/user/${user._id}`}>Details</Link>
         </article>
       ))}
     </section>

@@ -8,6 +8,7 @@ import { AboutUs } from './pages/AboutUs.jsx'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { UserMsg } from './cmps/UserMsg.jsx'
 import { UserIndex } from './pages/UserIndex.jsx'
+import { UserDetails } from './pages/UserDetails.jsx'
 
 export function App() {
     return (
@@ -20,6 +21,7 @@ export function App() {
                         <Route path='/bug' element={<BugIndex />} />
                         <Route path='/bug/:bugId' element={<BugDetails />} />
                         <Route path='/user' element={<UserIndex />} />
+                        <Route path='/user/:userId' element={<UserDetails />} />
                         <Route path='/about' element={<AboutUs />} />
                     </Routes>
                 </main>

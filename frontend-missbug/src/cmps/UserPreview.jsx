@@ -2,7 +2,7 @@
 
 export function UserPreview({ user }) {
 
-    return <article >
+    return <article className="user-preview-inner">
         <h1>{user.fullname}</h1>
         <p>{user?.username}</p>
         <p>{user?.password}</p>

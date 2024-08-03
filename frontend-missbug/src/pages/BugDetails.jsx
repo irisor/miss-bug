@@ -38,7 +38,7 @@ export function BugDetails() {
     )}
     if (!bug) return <h1>loadings....</h1>
     return <div className="bug-details container">
-        <h3>Bug Details 🐛</h3>
+        <h1>Bug Details 🐛</h1>
         <h4>{bug.title}</h4>
         <p>{bug.description}</p>
         <p>Severity: <span>{bug.severity}</span></p>
