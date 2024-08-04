@@ -31,21 +31,24 @@ export function BugDetails() {
 
     if (!bug && responseMessage) {
         return (
-        <>
-            <h1>{responseMessage}</h1>
-            <Link to="/bug">Back to List</Link>
-        </>
-    )}
+            <>
+                <h1>{responseMessage}</h1>
+                <Link to="/bug">Back to List</Link>
+            </>
+        )
+    }
     if (!bug) return <h1>loadings....</h1>
     return <div className="bug-details container">
         <h1>Bug Details 🐛</h1>
         <h4>{bug.title}</h4>
         <p>{bug.description}</p>
         <p>Severity: <span>{bug.severity}</span></p>
-        {bug.labels && <h4>Labels:</h4>}
-        <ul>
-            {bug.labels && bug.labels.map(label => <li key={label}>{label}</li>)}
-        </ul>
+        {bug.labels && Array.isArray(bug.labels) && bug.labels.length > 0 && <h4>Labels:</h4>}
+        {bug.labels && Array.isArray(bug.labels) && bug.labels.length > 0 &&
+            <ul>
+                {bug.labels.map(label => <li key={label}>{label}</li>)}
+            </ul>
+        }
         <Link to="/bug">Back to List</Link>
     </div>
 

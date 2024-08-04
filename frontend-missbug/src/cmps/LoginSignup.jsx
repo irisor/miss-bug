@@ -58,7 +58,7 @@ export function LoginSignup({ onSignup, onLogin }) {
                         onChange={handleChange}
                     >
                         <option value="">Select User</option>
-                        {users.map(user => <option key={user._id} value={user.username}>{user.fullname}</option>)}
+                        {users && Array.isArray(users) && users.map(user => <option key={user._id} value={user.username}>{user.fullname}</option>)}
                     </select>
                     {/* <input
                         type="text"
