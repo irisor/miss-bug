@@ -11,7 +11,7 @@ const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 //     '/api/' :
 //     '//localhost:3030/api/'
 const BASE_URL = !utilService.isDevelopment() ?
-    '/api/bug' :
+    '/api/' :
     '//localhost:3030/api/'
 // const BASE_URL = '//localhost:3030/api/'
 
