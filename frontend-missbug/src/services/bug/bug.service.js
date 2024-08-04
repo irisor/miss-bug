@@ -1,5 +1,7 @@
 
 import Axios from "axios"
+import { utilService } from "../../services/util.service.js"
+
 const axios = Axios.create({
     withCredentials: true
 })
@@ -7,7 +9,7 @@ const axios = Axios.create({
 // const BASE_URL = (import.meta.env.DEV !== 'development') ?
 //     '/api/bug' :
 //     '//localhost:3030/api/bug'
-const BASE_URL = (typeof process !== 'undefined') ?
+const BASE_URL = !utilService.isDevelopment() ?
     '/api/bug' :
     '//localhost:3030/api/bug'
 // const BASE_URL = 'http://localhost:3030/api/bug' 

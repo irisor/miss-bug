@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import { utilService } from '../../services/util.service'
 
 var axios = Axios.create({
     withCredentials: true,
@@ -9,7 +10,7 @@ const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 // const BASE_URL = (import.meta.env.DEV !== 'development') ?
 //     '/api/' :
 //     '//localhost:3030/api/'
-const BASE_URL = (typeof process !== 'undefined') ?
+const BASE_URL = !utilService.isDevelopment() ?
     '/api/bug' :
     '//localhost:3030/api/'
 // const BASE_URL = '//localhost:3030/api/'
