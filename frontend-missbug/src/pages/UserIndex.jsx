@@ -13,7 +13,6 @@ export function UserIndex() {
 
   async function loadUsers() {
     const users = await userService.query()
-    console.log("#1", users)
     setUsers(users)
   }
 
