@@ -93,7 +93,7 @@ function getFilterFromSearchParams(searchParams) {
     const defaultFilter = getDefaultFilter()
     const filterBy = {}
     for (const field in defaultFilter) {
-        filterBy[field] = searchParams.get(field) || ''
+        filterBy[field] = searchParams.get(field) || defaultFilter[field]
         if (field === 'labels') filterBy[field] = filterBy[field].split(',')
     }
     return filterBy
@@ -107,7 +107,7 @@ function getDefaultFilter() {
         owner: '',
         sortBy: '',
         sortDir: 1,
-        pageIdx: 0
+        pageIdx: undefined,
     }
 }
 
