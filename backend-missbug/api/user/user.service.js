@@ -26,10 +26,11 @@ function getById(userId) {
     return Promise.resolve(user)
 }
 
-async function remove(userId) {
+async function remove(userId, loggedinUser) {
     try {
         const userIdx = users.findIndex(user => user._id === userId)
         if (userIdx === -1) throw `Couldn't remove user with _id ${userId}`
+        if (!loggedinUser.isAdmin && users[userIdx]._id !== loggedinUser._id) throw 'Cant remove bug'
         users.splice(userIdx, 1)
         return _saveUsersToFile()
     } catch (err) {
@@ -38,12 +39,14 @@ async function remove(userId) {
     }
 }
 
-async function save(userToSave) {
+async function save(userToSave, loggedinUser) {
     try {
         if (userToSave._id) {
             const idx = users.findIndex(user => user._id === userToSave._id)
             if (idx === -1) throw `Couldn't update user with _id ${userToSave._id}`
 
+            if (!loggedinUser.isAdmin && users[idx]._id !== loggedinUser._id) throw 'Cant update user'
+            // If password changed - hash it
             if (users[idx].password !== userToSave.password) {
                 userToSave.password = await getHashPassword(userToSave.password)
             }

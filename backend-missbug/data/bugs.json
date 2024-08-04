@@ -29,7 +29,7 @@
     {
         "_id": "ghi789",
         "title": "Cannot delete a Car",
-        "severity": 0,
+        "severity": 3,
         "createdAt": 1542107359457,
         "description": "bbb",
         "labels": [

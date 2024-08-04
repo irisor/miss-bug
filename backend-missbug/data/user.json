@@ -50,22 +50,15 @@
         "password": "$2b$10$c3iMq5bFYz.MDlcyZylexuxSdbQytKlFfFbDsLCuZxwtE9GPc0QVq",
         "fullname": "iris",
         "_id": "hoMUhl",
-        "score": 5
-    },
-    {
-        "username": "aaa",
-        "password": "$2b$10$VF9Sy/wAKZH1JqG7JahO4OkooYpS4i1rZIE2wQ0iHQFOmZ9r1oEHi",
-        "fullname": "aaa",
-        "_id": "dmpCg2",
-        "score": 7
+        "score": 555
     },
     {
         "username": "ccc",
-        "password": "$2b$10$YW2AjgIvBKxx8V9jK61A5OpwpTa47hmAfJRqqyiOMhlVO/ukPF4TG",
+        "password": "$2b$10$nmGkorfoXsCr4mu8xFtXPO5qCnB2EeOzYLYYl35/JZXtnoxrb26zm",
         "fullname": "ccc",
-        "_id": "CG8cRn",
-        "score": 10000,
-        "createdAt": 1722716247694,
+        "_id": "BZ7E2j",
+        "score": 111,
+        "createdAt": 1722732404267,
         "imgUrl": "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
     }
 ]
