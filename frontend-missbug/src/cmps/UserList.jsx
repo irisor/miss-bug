@@ -18,7 +18,7 @@ export function UserList({ users, onRemoveUser, onEditUser }) {
             { isAllowed(user) && <button onClick={() => { onRemoveUser(user._id) }}>x</button> }
             { isAllowed(user) && <button onClick={() => { onEditUser(user) }}>Edit</button> }
           </div>
-          <Link to={`/user/${user._id}`}>Details</Link>
+          <Link className="user-actions" to={`/user/${user._id}`}>Details</Link>
         </article>
       ))}
     </section>

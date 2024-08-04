@@ -2,11 +2,12 @@
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 	gap: 20px;
-	margin-block-start: 40px;
+	margin-block: 40px;
 
 	.user-preview {
 		background-color: var(--clr1bg-light);
 		display: grid;
+		gap: 10px;
 		overflow: hidden;
 		padding: 20px;
 	}
@@ -19,7 +20,6 @@
 		align-self: end;
 		display: flex;
 		gap: 10px;
-		margin-block-end: 16px;
 
 		button {
 			margin: 0;
