@@ -4,7 +4,13 @@ const axios = Axios.create({
     withCredentials: true
 })
 
-const BASE_URL = 'http://localhost:3030/api/bug' 
+// const BASE_URL = (import.meta.env.DEV !== 'development') ?
+//     '/api/bug' :
+//     '//localhost:3030/api/bug'
+const BASE_URL = (typeof process !== 'undefined') ?
+    '/api/bug' :
+    '//localhost:3030/api/bug'
+// const BASE_URL = 'http://localhost:3030/api/bug' 
 
 export const bugService = {
     query,
@@ -20,7 +26,7 @@ export const bugService = {
 
 async function query(filterBy = {}) {
     try {
-        let filterByToSend = {...filterBy}
+        let filterByToSend = { ...filterBy }
         Object.keys(filterByToSend).forEach(key => {
             if (Array.isArray(filterByToSend[key])) {
                 filterByToSend[key] = filterByToSend[key].join(',')

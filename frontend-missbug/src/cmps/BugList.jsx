@@ -10,6 +10,7 @@ export function BugList({ bugs, onRemoveBug, onEditBug }) {
     return loggedinUser && (loggedinUser.isAdmin || bug?.owner?._id === loggedinUser?._id)
   }
 
+  if (!bugs || !bugs.length || !Array.isArray(bugs)) return <p>No bugs</p>
   return (
     <ul className="bug-list">
       {bugs?.map((bug) => (

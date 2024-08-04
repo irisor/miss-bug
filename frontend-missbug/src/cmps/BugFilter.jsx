@@ -78,13 +78,13 @@ export function BugFilter({ filterBy, onSetFilterBy, reloadLabels=false, setRelo
                 <label htmlFor="labels">Labels</label>
                 <select multiple type="select" name="labels" id="labels" onChange={handleChange} value={labels || []}>
                     <option value='all'>All labels</option>
-                    {availableLabels.map(label => <option key={label} value={label}>{label}</option>)}
+                    {Array.isArray(availableLabels) && availableLabels.map(label => <option key={label} value={label}>{label}</option>)}
                 </select>
 
                 <label htmlFor="owner">Owner</label>
                 <select type="select" name="owner" id="owner" onChange={handleChange} value={owner}>
                     <option value=''>Select an owner</option>
-                    {availableOwners.map(owner => <option key={owner?._id} value={owner?._id}>{owner?.fullname}</option>)}
+                    {Array.isArray(availableOwners) && availableOwners?.map(owner => <option key={owner?._id} value={owner?._id}>{owner?.fullname}</option>)}
                 </select>
             </form>
         </section>

@@ -9,6 +9,8 @@ export function UserList({ users, onRemoveUser, onEditUser }) {
   function isAllowed(user) {
     return loggedinUser && (loggedinUser.isAdmin || user?._id === loggedinUser?._id)
   }
+
+  if (!users || !users.length || !Array.isArray(users)) return <p>No users</p>
   return (
     <section className="user-list">
       {users?.map((user) => (
