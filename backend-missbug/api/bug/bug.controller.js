@@ -1,8 +1,8 @@
 import { bugService } from "./bug.service.js"
 
 export async function getBugs(req, res) {
-	const { txt, minSeverity, labels, sortBy, sortDir, pageIdx } = req.query
-    const filterBy = { txt, minSeverity: +minSeverity, labels, sortBy, sortDir }
+	const { txt, minSeverity, labels, owner, sortBy, sortDir, pageIdx } = req.query
+    const filterBy = { txt, minSeverity: +minSeverity, labels, owner, sortBy, sortDir }
     if (pageIdx) filterBy.pageIdx = +pageIdx
     try {
         const bugs = await bugService.query(filterBy)

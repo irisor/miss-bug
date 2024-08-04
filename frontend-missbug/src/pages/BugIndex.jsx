@@ -6,14 +6,24 @@ import { useCallback, useState } from 'react'
 import { useEffect } from 'react'
 import { BugFilter } from '../cmps/BugFilter.jsx'
 import { BugSort } from '../cmps/BugSort.jsx'
+import { useSearchParams } from 'react-router-dom'
 
 
 export function BugIndex() {
   const [bugs, setBugs] = useState([])
-  const [filterBy, setFilterBy] = useState({})
   const [reloadLabels, setReloadLabels] = useState(false)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [filterBy, setFilterBy] = useState(bugService.getFilterFromSearchParams(searchParams))
 
   useEffect(() => {
+    let filterByToSend = { ...filterBy }
+    Object.keys(filterByToSend).forEach(key => {
+      if (Array.isArray(filterByToSend[key])) {
+        filterByToSend[key] = filterByToSend[key].join(',')
+      }
+    })
+
+    setSearchParams(filterByToSend)
     loadBugs()
   }, [filterBy])
 
@@ -103,7 +113,7 @@ export function BugIndex() {
   }
 
   const { pageIdx, ...restOfFilter } = filterBy
-  const isPaging = pageIdx !== undefined
+  const isPaging = pageIdx !== undefined && pageIdx !== 'undefined'
 
   return (
     <main className="bug-index">
@@ -119,7 +129,7 @@ export function BugIndex() {
         </>}
       </div>
       <main>
-        <BugFilter filterBy={restOfFilter} onSetFilterBy={onSetFilterBy} reloadLabels={reloadLabels} setReloadLabels={setReloadLabels}/>
+        <BugFilter filterBy={restOfFilter} onSetFilterBy={onSetFilterBy} reloadLabels={reloadLabels} setReloadLabels={setReloadLabels} />
         <BugSort filterBy={restOfFilter} onSetFilterBy={onSetFilterBy} />
         <button className='add-btn' onClick={onAddBug}>Add Bug ⛐</button>
         <button className='pdf-btn' onClick={onGetpdf}>Get PDF of the bugs</button>

@@ -13,6 +13,8 @@ export const bugService = {
     remove,
     getLabels,
     getpdf,
+    getFilterFromSearchParams,
+    getDefaultFilter,
 }
 
 
@@ -86,3 +88,26 @@ async function getpdf() {
         throw err
     }
 }
+
+function getFilterFromSearchParams(searchParams) {
+    const defaultFilter = getDefaultFilter()
+    const filterBy = {}
+    for (const field in defaultFilter) {
+        filterBy[field] = searchParams.get(field) || ''
+        if (field === 'labels') filterBy[field] = filterBy[field].split(',')
+    }
+    return filterBy
+}
+
+function getDefaultFilter() {
+    return {
+        txt: '',
+        minSeverity: 0,
+        labels: '',
+        owner: '',
+        sortBy: '',
+        sortDir: 1,
+        pageIdx: 0
+    }
+}
+

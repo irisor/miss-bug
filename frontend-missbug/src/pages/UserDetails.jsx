@@ -5,6 +5,7 @@ import { showErrorMsg } from '../services/event-bus.service.js'
 import { useParams } from 'react-router'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { BugList } from '../cmps/BugList.jsx'
 
 
 export function UserDetails() {
@@ -44,6 +45,7 @@ export function UserDetails() {
         <p>{user?.isAdmin && 'Admin'}</p>
         <p>Score: <span>{user.score}</span></p>
         {user?.imgUrl && <img src={user?.imgUrl} width={200} height={200} />}
+        <BugList owner={user} />
         
         <p><Link to="/user">Back to List</Link></p>
     </div>

@@ -34,6 +34,10 @@ async function query(filterBy) {
             bugsToDisplay = bugsToDisplay.filter(bug => labels.some(label => bug.labels?.includes(label)))
         }
 
+        if (filterBy.owner) {
+            bugsToDisplay = bugsToDisplay.filter(bug => bug.owner?._id === filterBy.owner)
+        }
+
         if (filterBy.sortBy) {
             switch (filterBy.sortBy) {
                 case 'title':
@@ -52,7 +56,7 @@ async function query(filterBy) {
             if (filterBy.sortDir === -1) bugsToDisplay.reverse()
         }
 
-        if ('pageIdx' in filterBy) {
+        if ('pageIdx' in filterBy && !isNaN(filterBy.pageIdx) && filterBy.pageIdx !== undefined) {
             const startIdx = filterBy.pageIdx * PAGE_SIZE
             bugsToDisplay = bugsToDisplay.slice(startIdx, startIdx + PAGE_SIZE)
         }
