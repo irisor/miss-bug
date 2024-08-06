@@ -1,17 +1,17 @@
 
 import Axios from "axios"
-import { utilService } from "../../services/util.service.js"
+// import { utilService } from "../../services/util.service.js"
 
 const axios = Axios.create({
     withCredentials: true
 })
 
-// const BASE_URL = (import.meta.env.DEV !== 'development') ?
-//     '/api/bug' :
-//     '//localhost:3030/api/bug'
-const BASE_URL = !utilService.isDevelopment() ?
+const BASE_URL = (process.env.NODE_ENV !== 'development') ?
     '/api/bug' :
     '//localhost:3030/api/bug'
+// const BASE_URL = !utilService.isDevelopment() ?
+//     '/api/bug' :
+//     '//localhost:3030/api/bug'
 // const BASE_URL = 'http://localhost:3030/api/bug' 
 
 export const bugService = {

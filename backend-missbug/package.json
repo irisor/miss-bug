@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "set PORT=3030 & set secret1='Secret-Puk-1234' & nodemon --ignore \"./data\" server.js",
+    "dev": "set PORT=3030 & nodemon --ignore \"./data\" server.js",
     "dev:mac": "export PORT=3030 && nodemon --ignore \"./data\" server.js",
     "dev:mac2": "nodemon --ignore \"./data\" server.js"
   },
