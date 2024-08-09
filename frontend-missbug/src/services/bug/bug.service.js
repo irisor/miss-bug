@@ -20,9 +20,7 @@ export const bugService = {
     save,
     remove,
     getLabels,
-    getpdf,
-    getFilterFromSearchParams,
-    getDefaultFilter,
+    getPdf,
 }
 
 
@@ -73,7 +71,7 @@ async function save(bugToSave) {
 
 async function getLabels() {
     try {
-        const { data: labels } = await axios.get(BASE_URL + '/getlabels')
+        const { data: labels } = await axios.get(BASE_URL + '/labels')
         return labels
     } catch (err) {
         console.log('err:', err)
@@ -81,9 +79,9 @@ async function getLabels() {
     }
 }
 
-async function getpdf() {
+async function getPdf() {
     try {
-        const { data } = await axios.get(BASE_URL + '/getpdf', { responseType: 'blob' })
+        const { data } = await axios.get(BASE_URL + '/pdf', { responseType: 'blob' })
         const url = window.URL.createObjectURL(new Blob([data]));
         const link = document.createElement('a');
         link.href = url;
@@ -96,26 +94,3 @@ async function getpdf() {
         throw err
     }
 }
-
-function getFilterFromSearchParams(searchParams) {
-    const defaultFilter = getDefaultFilter()
-    const filterBy = {}
-    for (const field in defaultFilter) {
-        filterBy[field] = searchParams.get(field) || defaultFilter[field]
-        if (field === 'labels') filterBy[field] = filterBy[field].split(',')
-    }
-    return filterBy
-}
-
-function getDefaultFilter() {
-    return {
-        txt: '',
-        minSeverity: 0,
-        labels: '',
-        owner: '',
-        sortBy: '',
-        sortDir: 1,
-        pageIdx: undefined,
-    }
-}
-

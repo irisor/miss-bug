@@ -108,8 +108,8 @@ export function BugIndex() {
     setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: isPaging ? undefined : 0 }))
   }
 
-  function onGetpdf() {
-    bugService.getpdf()
+  function onGetPdf() {
+    bugService.getPdf()
   }
 
   const { pageIdx, ...restOfFilter } = filterBy
@@ -132,7 +132,7 @@ export function BugIndex() {
         <BugFilter filterBy={restOfFilter} onSetFilterBy={onSetFilterBy} reloadLabels={reloadLabels} setReloadLabels={setReloadLabels} />
         <BugSort filterBy={restOfFilter} onSetFilterBy={onSetFilterBy} />
         <button className='add-btn' onClick={onAddBug}>Add Bug ⛐</button>
-        <button className='pdf-btn' onClick={onGetpdf}>Get PDF of the bugs</button>
+        <button className='pdf-btn' onClick={onGetPdf}>Get PDF of the bugs</button>
         <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
       </main>
     </main>

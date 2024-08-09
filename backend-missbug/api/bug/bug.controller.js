@@ -1,3 +1,4 @@
+import { loggerService } from "../../services/logger.service.js"
 import { bugService } from "./bug.service.js"
 
 export async function getBugs(req, res) {
@@ -45,7 +46,7 @@ export async function addBug(req, res) {
         const savedBug = await bugService.save(bugToSave, loggedinUser)
         res.send(savedBug)
     } catch (err) {
-        console.log('err:', err)
+        loggerService.error('Cannot get bug, err:', err)
         res.status(400).send(`Couldn't add bug`)
     }
 }
@@ -58,7 +59,7 @@ export async function updateBug(req, res) {
         const savedBug = await bugService.save(bugToSave, loggedinUser)
         res.send(savedBug)
     } catch (err) {
-        console.log('err:', err)
+        loggerService.error('Cannot update bug, err:', err)
         res.status(400).send(`Couldn't save bug`)
     }
 }
@@ -68,16 +69,19 @@ export async function getLabels(req, res) {
         const labels = await bugService.getLabels()
         res.send(labels)
     } catch (err) {
-        console.log('err:', err)
+        loggerService.error('Cannot get labels, err:', err)
         res.status(400).send(`Couldn't get labels`)
     }
 }
 
-export async function getpdf(req, res) {
+export async function getPdf(req, res) {
     try {
-        await bugService.getpdf(req, res)
+        const { filename, pdf } = await bugService.getPdf()
+        res.setHeader('Content-disposition', `attachment; filename=${filename}`)
+        res.set("Content-Type", "application/pdf");
+        res.send(pdf)
     } catch (err) {
-        console.log('err:', err);
+        loggerService.error('Cannot get pdf, err:', err)
         res.status(400).send(`Couldn't create pdf`)
     }
 }

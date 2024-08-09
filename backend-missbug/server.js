@@ -20,6 +20,15 @@ const corsOptions = {
 }
 
 //* App Configuration
+
+console.log("NODE_ENV:", process.env.NODE_ENV)
+if (process.env.NODE_ENV !== 'production') {
+    console.log("development mode")
+    app.use(cors(corsOptions))
+} else {
+    console.log("production mode")
+    app.use(express.static('public'))
+}
 app.use(cors(corsOptions))
 app.use(express.static('public'))
 app.use(cookieParser())
