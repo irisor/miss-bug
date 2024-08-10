@@ -49,20 +49,23 @@ async function getById(bugId) {
     }
 }
 async function remove(bugId) {
-    const url = BASE_URL + '/' + bugId
     try {
-        let { data } = await axios.delete(url)
+        let { data } = await axios.delete(`${BASE_URL}/${bugId}`)
         return data
     } catch (err) {
         console.log('err:', err)
         throw err
     }
 }
-async function save(bugToSave) {
+async function save(bug) {
     try {
-        const method = bugToSave._id ? 'put' : 'post'
-        const { data: savedBug } = await axios[method](BASE_URL, bugToSave)
-        return savedBug
+        let savedBug
+        if (bug._id) {
+            savedBug = await axios.put(`${BASE_URL}/${bug._id}`, bug)
+        } else {
+            savedBug = await axios.post(`${BASE_URL}`, bug)
+        }
+        return savedBug.data
     } catch (err) {
         console.log('err:', err)
         throw err

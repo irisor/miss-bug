@@ -13,11 +13,11 @@ export async function getUser(req, res) {
 
 export async function getUsers(req, res) {
     try {
-        const filterBy = {
-            txt: req.query.txt || '',
-            minBalance: +req.query.minBalance || 0
-        }
-        const users = await userService.query(filterBy)
+        // const filterBy = {
+        //     txt: req.query.txt || '',
+        //     minBalance: +req.query.minBalance || 0
+        // }
+        const users = await userService.query()
         res.send(users)
     } catch (err) {
         loggerService.error('Failed to get users', err)
@@ -28,7 +28,7 @@ export async function getUsers(req, res) {
 export async function deleteUser(req, res) {
     const { loggedinUser } = req
     try {
-        await userService.remove(req.params.id, loggedinUser)
+        await userService.remove(req.params.id)
         res.send({ msg: 'Deleted successfully' })
     } catch (err) {
         loggerService.error('Failed to delete user', err)
@@ -36,25 +36,11 @@ export async function deleteUser(req, res) {
     }
 }
 
-export async function addUser(req, res) {
-    const { loggedinUser } = req
-    const { fullname, username, password, score } = req.body
-    const userToSave = { fullname, username, password, score: +score }
-    try {
-        const savedUser = await userService.save(userToSave, loggedinUser)
-        res.send(savedUser)
-    } catch (err) {
-        console.log('err:', err)
-        res.status(400).send(`Couldn't add user`)
-    }
-}
-
 export async function updateUser(req, res) {
-    const { loggedinUser } = req
     const { _id, fullname, username, password, score } = req.body
     const userToSave = { _id, fullname, username, password, score: +score }
     try {
-        const savedUser = await userService.save(userToSave, loggedinUser)
+        const savedUser = await userService.update(userToSave, loggedinUser)
         res.send(savedUser)
     } catch (err) {
         console.log('err:', err)

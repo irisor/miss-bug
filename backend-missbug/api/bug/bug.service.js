@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb'
 import fs from "fs"
 import PDFDocument from 'pdfkit'
 import { loggerService } from "../../services/logger.service.js"
-import {  readJsonFile } from "../../services/util.service.js"
+import { readJsonFile } from "../../services/util.service.js"
 import { dbService } from '../../services/db.service.js'
 import { asyncLocalStorage } from '../../services/als.service.js'
 
@@ -56,6 +56,7 @@ async function getById(bugId) {
 
 async function remove(bugId) {
     const { loggedinUser } = asyncLocalStorage.getStore()
+    console.log("*** bug.service remove loggedinUser:", loggedinUser, " bugId:", bugId)
     const { _id: ownerId, isAdmin } = loggedinUser
 
     try {
@@ -82,7 +83,7 @@ async function add(bug) {
 
         return bug
     } catch (err) {
-        logger.error('cannot insert bug', err)
+        loggerService.error('cannot insert bug', err)
         throw err
     }
 }
@@ -91,31 +92,27 @@ async function update(bug) {
 
     try {
         const criteria = { _id: ObjectId.createFromHexString(bug._id) }
-
         const collection = await dbService.getCollection('bug')
+        // pick only updatable properties
+        const bugToSave = {
+            title: bug.title,
+            severity: bug.severity,
+            description: bug.description,
+            labels: bug.labels,
+        }
+
         await collection.updateOne(criteria, { $set: bugToSave })
 
         return bug
     } catch (err) {
-        logger.error(`cannot update bug ${bug._id}`, err)
+        loggerService.error(`cannot update bug ${bug._id}`, err)
         throw err
     }
 }
 
-
-function _saveBugsToFile(path = './data/bugs.json') {
-    return new Promise((resolve, reject) => {
-        const data = JSON.stringify(bugs, null, 4)
-        fs.writeFile(path, data, (err) => {
-            if (err) return reject(err)
-            resolve()
-        })
-    })
-}
-
 async function getLabels() {
     try {
-        const [{labels}] = await dbService.aggregate(('bug'), [
+        const [{ labels }] = await dbService.aggregate(('bug'), [
             { $unwind: "$labels" },
             { $match: { labels: { $ne: "" } } },
             { $group: { _id: null, labels: { $addToSet: "$labels" } } },
@@ -185,7 +182,7 @@ function _buildCriteria(filterBy) {
     }
 
     if (filterBy.owner) {
-        criteria.$and.push({ "owner.id": filterBy.owner })
+        criteria.$and.push({ "owner._id": filterBy.owner })
     }
 
     if (criteria.$and.length === 0) criteria = {}
@@ -201,7 +198,7 @@ function _buildCriteria(filterBy) {
     //         },
     //         { labels: { $in: ["critical", "to-verify", "label1"] } },
     //         { severity: { $gte: 2 } },
-    //         { "owner.id": "u101" }
+    //         { "owner._id": "u101" }
     //     ]
     // }
 

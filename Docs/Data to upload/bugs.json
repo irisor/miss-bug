@@ -10,7 +10,7 @@
             "dev-branch"
         ],
         "owner": {
-            "id": "u101",
+            "_id": "u101",
             "fullname": "Puki Ja"
         }
     },
@@ -33,7 +33,7 @@
             "to-verify"
         ],
         "owner": {
-            "id": "u101",
+            "_id": "u101",
             "fullname": "Puki Ja"
         }
     },
@@ -144,7 +144,7 @@
             "critical"
         ],
         "owner": {
-            "id": "u102",
+            "_id": "u102",
             "fullname": "Muki Ba",
             "score": 88,
             "isAdmin": true

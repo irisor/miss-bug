@@ -32,12 +32,12 @@ function validateToken(token) {
 }
 
 async function login(username, password) {
-    var user = await userService.getByUsername(username)
-    if (!user) throw 'Unkown username'
+    const user = await userService.getByUsername(username)
+	if (!user) return Promise.reject('Invalid username or password')
 
-    //  un-comment for real login
-    // const match = await bcrypt.compare(password, user.password)
-    // if (!match) throw 'Invalid username or password'
+	// TODO: un-comment for real login
+	// const match = await bcrypt.compare(password, user.password)
+	// if (!match) return Promise.reject('Invalid username or password')
 
     // Removing passwords and personal data
     const miniUser = {
@@ -62,5 +62,5 @@ async function signup({ username, password, fullname }) {
     if (userExist) throw 'Username already taken'
     
     const hash = await getHashPassword(password)
-    return userService.save({ username, password: hash, fullname })
+    return userService.add({ username, password: hash, fullname })
 }

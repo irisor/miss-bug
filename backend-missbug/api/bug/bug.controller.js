@@ -28,12 +28,12 @@ export async function getBug(req, res) {
 
 export async function removeBug(req, res) {
     try {
-		const bugId = req.params.id
+		const bugId = req.params.bugId
 		const removedId = await bugService.remove(bugId)
 
 		res.send(removedId)
 	} catch (err) {
-		logger.error('Failed to remove bug', err)
+		loggerService.error('Failed to remove bug', err)
 		res.status(400).send({ err: 'Failed to remove bug' })
 	}
 }
@@ -46,7 +46,7 @@ export async function addBug(req, res) {
 		const addedBug = await bugService.add(bug)
 		res.json(addedBug)
 	} catch (err) {
-		logger.error('Failed to add bug', err)
+		loggerService.error('Failed to add bug', err)
 		res.status(400).send({ err: 'Failed to add bug' })
 	}
 }
@@ -64,7 +64,7 @@ export async function updateBug(req, res) {
 		const updatedBug = await bugService.update(bug)
 		res.json(updatedBug)
 	} catch (err) {
-		logger.error('Failed to update bug', err)
+		loggerService.error('Failed to update bug', err)
 		res.status(400).send({ err: 'Failed to update bug' })
 	}
 }

@@ -1,92 +1,118 @@
-import fs from 'fs'
-import { makeId, readJsonFile } from '../../services/util.service.js'
-import { getHashPassword } from '../../services/util.service.js'
+import { readJsonFile } from '../../services/util.service.js'
 import { loggerService } from '../../services/logger.service.js'
+import { dbService } from '../../services/db.service.js'
 
 
 const users = readJsonFile('data/user.json')
 
 export const userService = {
-    query,
-    getById,
-    remove,
-    save,
-    getByUsername,
+    add, // Create (Signup)
+	getById, // Read (Profile page)
+	update, // Update (Edit profile)
+	remove, // Delete (remove user)
+	query, // List (of users)
+	getByUsername, // Used for Login
 }
 
-
-
-function query() {
-    return Promise.resolve(users)
-}
-
-function getById(userId) {
-    const user = users.find(user => user._id === userId)
-    if (!user) return Promise.reject('User not found!')
-    return Promise.resolve(user)
-}
-
-async function remove(userId, loggedinUser) {
+async function query() {
     try {
-        const userIdx = users.findIndex(user => user._id === userId)
-        if (userIdx === -1) throw `Couldn't remove user with _id ${userId}`
-        if (!loggedinUser.isAdmin && users[userIdx]._id !== loggedinUser._id) throw 'Cant remove bug'
-        users.splice(userIdx, 1)
-        return _saveUsersToFile()
-    } catch (err) {
-        loggerService.error(`Couldn't get user`, err);
-        throw err
-    }
-}
-
-async function save(userToSave, loggedinUser) {
-    try {
-        if (userToSave._id) {
-            const idx = users.findIndex(user => user._id === userToSave._id)
-            if (idx === -1) throw `Couldn't update user with _id ${userToSave._id}`
-
-            if (!loggedinUser.isAdmin && users[idx]._id !== loggedinUser._id) throw 'Cant update user'
-            // If password changed - hash it
-            if (users[idx].password !== userToSave.password) {
-                userToSave.password = await getHashPassword(userToSave.password)
-            }
-            users[idx] = { ...users[idx], ...userToSave } // update the user with the new userToSave
-            userToSave = users[idx]
-        } else {
-            userToSave._id = makeId()
-            userToSave.score = 10000
-            userToSave.createdAt = Date.now()
-            if (!userToSave.imgUrl) userToSave.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
-            userToSave.password = await getHashPassword(userToSave.password)
-            users.push(userToSave)
-        }
-        await _saveUsersToFile()
-        return userToSave
-    } catch (err) {
-        loggerService.error(`Couldn't get user`, err);
-        throw err
-    }
-}
-
-function _saveUsersToFile() {
-    return new Promise((resolve, reject) => {
-        const usersStr = JSON.stringify(users, null, 4)
-        fs.writeFile('data/user.json', usersStr, (err) => {
-            if (err) {
-                return console.log(err);
-            }
-            resolve()
+        const collection = await dbService.getCollection('user')
+        let users = await collection.find({}).toArray()
+        users = users.map(user => {
+            delete user.password
+            user.createdAt = user._id.getTimestamp()
+            // Returning fake fresh data
+            // user.createdAt = Date.now() - (1000 * 60 * 60 * 24 * 3) // 3 days ago
+            return user
         })
-    })
+        return users
+    } catch (err) {
+        loggerService.error('cannot find users', err)
+        throw err
+    }
+}
+
+async function getById(userId) {
+    try {
+        let criteria = { _id: ObjectId.createFromHexString(userId) }
+
+        const collection = await dbService.getCollection('user')
+        const user = await collection.findOne(criteria)
+        delete user.password
+
+        criteria = { byUserId: userId }
+
+        // user.givenReviews = await reviewService.query(criteria)
+        // user.givenReviews = user.givenReviews.map(review => {
+        //     delete review.byUser
+        //     return review
+        // })
+
+        return user
+    } catch (err) {
+        loggerService.error(`while finding user by id: ${userId}`, err)
+        throw err
+    }
 }
 
 async function getByUsername(username) {
+	try {
+		const collection = await dbService.getCollection('user')
+		const user = await collection.findOne({ username })
+        if (user && typeof user === 'object') delete user.password
+		return user
+	} catch (err) {
+		loggerService.error(`while finding user by username: ${username}`, err)
+		throw err
+	}
+}
+
+async function remove(userId) {
     try {
-        const user = users.find(user => user.username === username)
-        // if (!user) throw `User not found by username : ${username}`
-        return user
+        const criteria = { _id: ObjectId.createFromHexString(userId) }
+
+        const collection = await dbService.getCollection('user')
+        await collection.deleteOne(criteria)
     } catch (err) {
-        loggerService.error('userService[getByUsername] : ', err)
+        loggerService.error(`cannot remove user ${userId}`, err)
         throw err
     }
 }
+
+async function update(user) {
+    try {
+        // pick only updatable properties
+        const userToSave = {
+            _id: ObjectId.createFromHexString(user._id), // needed for the returnd obj
+            fullname: user.fullname,
+            score: user.score,
+        }
+        const collection = await dbService.getCollection('user')
+        await collection.updateOne({ _id: userToSave._id }, { $set: userToSave })
+        return userToSave
+    } catch (err) {
+        loggerService.error(`cannot update user ${user._id}`, err)
+        throw err
+    }
+}
+
+async function add(user) {
+	try {
+		// pick only updatable fields!
+		const userToAdd = {
+			username: user.username,
+			password: user.password,
+			fullname: user.fullname,
+			imgUrl: user.imgUrl,
+			isAdmin: user.isAdmin,
+			score: 100,
+		}
+		const collection = await dbService.getCollection('user')
+		await collection.insertOne(userToAdd)
+		return userToAdd
+	} catch (err) {
+		loggerService.error('cannot add user', err)
+		throw err
+	}
+}
+

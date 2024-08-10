@@ -7,7 +7,7 @@ export function BugList({ bugs, onRemoveBug, onEditBug }) {
   const loggedinUser = userService.getLoggedinUser()
 
   function isAllowed(bug) {
-    return loggedinUser && (loggedinUser.isAdmin || bug?.owner?.id === loggedinUser?._id)
+    return loggedinUser && (loggedinUser.isAdmin || bug?.owner?._id === loggedinUser?._id)
   }
 
   if (!bugs || !bugs.length || !Array.isArray(bugs)) return <p>No bugs</p>

@@ -14,7 +14,7 @@ router.get('/labels', log, getLabels)
 router.get('/:bugId', log, checkVisits, getBug)
 router.delete('/:bugId', log, requireAuth, removeBug)
 router.post('/', log, requireAuth, addBug)
-router.put('/', log, requireAuth, updateBug)
+router.put('/:bugId', log, requireAuth, updateBug)
 
 
 export const bugRoutes = router
