@@ -1,6 +1,5 @@
 [
     {
-        "_id": "abc123",
         "title": "my bug2",
         "severity": 5,
         "description": "ccc",
@@ -16,7 +15,6 @@
         }
     },
     {
-        "_id": "def456",
         "title": "Cannot update a Car",
         "severity": 0,
         "createdAt": 1542107359456,
@@ -27,7 +25,6 @@
         "description": "new desc"
     },
     {
-        "_id": "ghi789",
         "title": "Cannot delete a Car",
         "severity": 3,
         "createdAt": 1542107359457,
@@ -41,7 +38,6 @@
         }
     },
     {
-        "_id": "pqr678",
         "title": "Cannot update a Car",
         "severity": 3,
         "createdAt": 1542107359457,
@@ -51,7 +47,6 @@
         ]
     },
     {
-        "_id": "stu901",
         "title": "Cannot delete a Car",
         "severity": 1,
         "createdAt": 1542107359461,
@@ -62,38 +57,32 @@
         ]
     },
     {
-        "_id": "vwx234",
         "title": "Cannot get a Car",
         "description": "kkk",
         "severity": 5,
         "labels": []
     },
     {
-        "_id": "yz0123",
         "title": "Cannot create a new Car",
         "severity": 2,
         "createdAt": 1542107359463
     },
     {
-        "_id": "bcd456",
         "title": "Cannot update a Car",
         "severity": 2,
         "createdAt": 1542107359464
     },
     {
-        "_id": "efg789",
         "title": "Cannot update a Car",
         "severity": 2,
         "createdAt": 1542107359465
     },
     {
-        "_id": "hij012",
         "title": "Cannot delete a Car",
         "severity": 1,
         "createdAt": 1542107359466
     },
     {
-        "_id": "klm345",
         "title": "Cannot get a Car",
         "severity": 3,
         "createdAt": 1542107359467
@@ -105,31 +94,26 @@
         "createdAt": 1542107359468
     },
     {
-        "_id": "qrs901",
         "title": "Cannot update a Car",
         "severity": 2,
         "createdAt": 1542107359469
     },
     {
-        "_id": "tuv234",
         "title": "Cannot delete a Car",
         "severity": 1,
         "createdAt": 1542107359470
     },
     {
-        "_id": "wxy567",
         "title": "Cannot get a Car",
         "severity": 3,
         "createdAt": 1542107359471
     },
     {
-        "_id": "zab890",
         "title": "Cannot create a new Car",
         "severity": 2,
         "createdAt": 1542107359472
     },
     {
-        "_id": "VDXDy8",
         "title": "can't read",
         "severity": "2",
         "CreatedAt": 1721312338468
@@ -138,21 +122,18 @@
         "title": "my bug 4",
         "severity": 6,
         "description": "mmm",
-        "_id": "Y5m43A",
         "CreatedAt": 1722023675192
     },
     {
         "title": "my bug 5",
         "severity": 2,
         "description": "mmm",
-        "_id": "jBvJ7h",
         "CreatedAt": 1722023889501
     },
     {
         "title": "my bug 6",
         "severity": 4,
         "description": "dd",
-        "_id": "TKBnBX",
         "CreatedAt": 1722024017648
     },
     {
@@ -168,7 +149,6 @@
             "score": 88,
             "isAdmin": true
         },
-        "_id": "JNRgw7",
         "CreatedAt": 1722702776025
     }
 ]

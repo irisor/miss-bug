@@ -21,6 +21,7 @@
     "express": "^4.19.2",
     "fs": "^0.0.1-security",
     "lodash.escaperegexp": "^4.1.2",
+    "mongodb": "^6.8.0",
     "pdfkit": "^0.15.0"
   }
 }
