@@ -1,0 +1,543 @@
+{
+	"info": {
+		"_postman_id": "f61655fa-f6be-4672-aa64-3dd6bd5b8852",
+		"name": "MissBug",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5841276"
+	},
+	"item": [
+		{
+			"name": "all bugs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/bug/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"bug",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get labels",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/bug/labels",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"bug",
+						"labels"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all bugs filter labels",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/bug/?labels=critical",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"bug",
+						""
+					],
+					"query": [
+						{
+							"key": "labels",
+							"value": "critical"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all bugs filter severity",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/bug/?minSeverity=4",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"bug",
+						""
+					],
+					"query": [
+						{
+							"key": "minSeverity",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get bug",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/bug/66b7ad2132c2b801e432e80a",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"bug",
+						"66b7ad2132c2b801e432e80a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": \"66b7ad2132c2b801e432e80c\",\r\n    \"title\": \"Cannot delete a car - updated\",\r\n    \"severity\": 5,\r\n    \"description\": \"bbbb\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/bug/66b7ad2132c2b801e432e80c",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"bug",
+						"66b7ad2132c2b801e432e80c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"my bug 8\",\r\n    \"severity\": 4,\r\n    \"description\": \"dd\",\r\n    \"labels\": [\r\n        \"aaa\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/bug/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"bug",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getpdf",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/bug/pdf",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"bug",
+						"pdf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sort by createdAt",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3030/api/bug?txt=&minSeverity=&labels=&sortBy=createdAt&sortDir=-1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"bug"
+					],
+					"query": [
+						{
+							"key": "txt",
+							"value": ""
+						},
+						{
+							"key": "minSeverity",
+							"value": ""
+						},
+						{
+							"key": "labels",
+							"value": ""
+						},
+						{
+							"key": "sortBy",
+							"value": "createdAt"
+						},
+						{
+							"key": "sortDir",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/user/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/user/u101",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"user",
+						"u101"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": \"Vn3jcf\",\r\n    \"username\": \"muki\",\r\n    \"fullname\": \"Muki Ba\",\r\n    \"password\": \"secret2\",\r\n    \"score\": 55\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/user/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"iris\",\r\n    \"fullname\": \"iris\",\r\n    \"password\": \"iris\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/auth/logout",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"iris\",\r\n    \"password\": \"iris\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get msgs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/msg",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"msg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add msg",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"txt\": \"my first msg\",\r\n    \"aboutBugId\": \"66b7ad2132c2b801e432e80a\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/msg/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"msg",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove msg",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3030/api/msg/66b8b3f70f5ebf9845feaf78",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"msg",
+						"66b8b3f70f5ebf9845feaf78"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

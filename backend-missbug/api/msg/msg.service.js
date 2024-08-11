@@ -82,13 +82,11 @@ async function remove(msgId) {
 
 async function add(msg) {
     try {
-        console.log("*** msg.service msg", msg)
         const msgToAdd = {
             byUserId: msg.byUserId ? ObjectId.createFromHexString(msg.byUserId) : null,
 			aboutBugId: msg.aboutBugId ?ObjectId.createFromHexString(msg.aboutBugId) : null,
 			txt: msg.txt,
 		}
-        console.log("*** msg.service msgToAdd", msgToAdd)
 		const collection = await dbService.getCollection('msg')
 		await collection.insertOne(msgToAdd)
         

@@ -7,9 +7,7 @@ import { bugService } from '../bug/bug.service.js'
 
 export async function getMsgs(req, res) {
 	try {
-		console.log("*** msg.controller getMsgs")
 		const msgs = await msgService.query(req.query)
-		console.log("*** msg.controller getMsgs msgs", msgs)
 		res.send(msgs)
 	} catch (err) {
 		loggerService.error('Cannot get msgs', err)

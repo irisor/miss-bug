@@ -2,6 +2,7 @@ import { readJsonFile } from '../../services/util.service.js'
 import { loggerService } from '../../services/logger.service.js'
 import { dbService } from '../../services/db.service.js'
 import { ObjectId } from 'mongodb'
+import { msgService } from '../msg/msg.service.js'
 
 
 const users = readJsonFile('data/user.json')
@@ -39,15 +40,16 @@ async function getById(userId) {
 
         const collection = await dbService.getCollection('user')
         const user = await collection.findOne(criteria)
+        user.createdAt = user._id.getTimestamp()
         delete user.password
 
         criteria = { byUserId: userId }
 
-        // user.givenMsgs = await msgService.query(criteria)
-        // user.givenMsgs = user.givenMsgs.map(msg => {
-        //     delete msg.byUser
-        //     return msg
-        // })
+        user.msgs = await msgService.query(criteria)
+        user.msgs = user.msgs?.map(msg => {
+            delete msg.byUser
+            return msg
+        })
 
         return user
     } catch (err) {

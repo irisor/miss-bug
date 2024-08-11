@@ -6,6 +6,7 @@ import { loggerService } from "../../services/logger.service.js"
 import { readJsonFile } from "../../services/util.service.js"
 import { dbService } from '../../services/db.service.js'
 import { asyncLocalStorage } from '../../services/als.service.js'
+import { msgService } from '../msg/msg.service.js'
 
 const bugs = readJsonFile('data/bugs.json')
 const PAGE_SIZE = 4
@@ -43,20 +44,31 @@ async function query(filterBy) {
 }
 
 async function getById(bugId) {
-    const criteria = { _id: ObjectId.createFromHexString(bugId) }
-    console.log("*** bug.service getById criteria:", bugId, criteria)
+    let bug = {}
+    try {
+        let criteria = { _id: ObjectId.createFromHexString(bugId) }
 
-    const collection = await dbService.getCollection('bug')
-    const bug = await collection.findOne(criteria)
+        const collection = await dbService.getCollection('bug')
+        bug = await collection.findOne(criteria)
 
-    if (!bug) throw `Couldn't find bug with _id ${bugId}`
-    bug.createdAt = bug._id.getTimestamp()
+        if (!bug) throw `Couldn't find bug with _id ${bugId}`
+        bug.createdAt = bug._id.getTimestamp()
+
+        criteria = { aboutBugId: bugId }
+        bug.msgs = await msgService.query(criteria)
+        bug.msgs = bug.msgs?.map(msg => {
+            delete msg.byUser
+            return msg
+        })
+    } catch (err) {
+        loggerService.error(`Couldn't get bug by Id`, err)
+        throw err
+    }
     return bug
 }
 
 async function remove(bugId) {
     const { loggedinUser } = asyncLocalStorage.getStore()
-    console.log("*** bug.service remove loggedinUser:", loggedinUser, " bugId:", bugId)
     const { _id: ownerId, isAdmin } = loggedinUser
 
     try {
@@ -158,7 +170,7 @@ async function getPdf() {
 }
 
 function _buildCriteria(filterBy) {
-    const labels = filterBy.labels.split(',')
+    const labels = filterBy.labels?.split(',')
     let criteria = {}
 
     criteria.$and = []
