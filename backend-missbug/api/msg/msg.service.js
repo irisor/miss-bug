@@ -46,7 +46,8 @@ async function query(filterBy = {}) {
             }
 			msg.aboutBug = { 
                 _id: msg.aboutBug._id, 
-                title: msg.aboutBug.title 
+                title: msg.aboutBug.title,
+                severity: msg.aboutBug.severity
             }
 			delete msg.byUserId
 			delete msg.aboutBugId
