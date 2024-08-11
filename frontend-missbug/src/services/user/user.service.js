@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import { utilService } from '../../services/util.service'
 
-var axios = Axios.create({
+let axios = Axios.create({
     withCredentials: true,
 })
 

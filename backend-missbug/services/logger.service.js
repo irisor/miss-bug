@@ -37,7 +37,7 @@ function doLog(level, ...args) {
     const strs = args.map(arg =>
         (typeof arg === 'string' || isError(arg)) ? arg : JSON.stringify(arg)
     )
-    var line = strs.join(' | ')
+    let line = strs.join(' | ')
     line = `${getTime()} - ${level} - ${line}\n`
     console.log(line)
     fs.appendFile('./logs/backend.log', line, (err) => {

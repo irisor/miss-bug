@@ -5,7 +5,7 @@ import { loggerService } from './logger.service.js'
 
 export const dbService = { getCollection, aggregate }
 
-var dbConn = null
+let dbConn = null
 
 async function getCollection(collectionName) {
 	try {

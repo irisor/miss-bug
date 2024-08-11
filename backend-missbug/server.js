@@ -6,6 +6,7 @@ import { loggerService } from './services/logger.service.js'
 import { bugRoutes } from './api/bug/bug.routes.js'
 import { userRoutes } from './api/user/user.routes.js'
 import { authRoutes } from './api/auth/auth.routes.js'
+import { msgRoutes } from './api/msg/msg.routes.js'
 import { setupAsyncLocalStorage } from './middlewares/setupAls.middleware.js'
 
 const app = express()
@@ -25,10 +26,10 @@ const corsOptions = {
 console.log("NODE_ENV:", process.env.NODE_ENV)
 if (process.env.NODE_ENV !== 'production') {
     console.log("development mode")
-    app.use(cors(corsOptions))
+    // app.use(cors(corsOptions))
 } else {
     console.log("production mode")
-    app.use(express.static('public'))
+    // app.use(express.static('public'))
 }
 app.use(cors(corsOptions))
 app.use(express.static('public'))
@@ -41,6 +42,7 @@ app.all('*', setupAsyncLocalStorage)
 app.use('/api/bug', bugRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/msg', msgRoutes)
 
 
 app.get('/', (req, res) => res.send('Hello there'))

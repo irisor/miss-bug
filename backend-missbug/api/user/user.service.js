@@ -1,6 +1,7 @@
 import { readJsonFile } from '../../services/util.service.js'
 import { loggerService } from '../../services/logger.service.js'
 import { dbService } from '../../services/db.service.js'
+import { ObjectId } from 'mongodb'
 
 
 const users = readJsonFile('data/user.json')
@@ -42,10 +43,10 @@ async function getById(userId) {
 
         criteria = { byUserId: userId }
 
-        // user.givenReviews = await reviewService.query(criteria)
-        // user.givenReviews = user.givenReviews.map(review => {
-        //     delete review.byUser
-        //     return review
+        // user.givenMsgs = await msgService.query(criteria)
+        // user.givenMsgs = user.givenMsgs.map(msg => {
+        //     delete msg.byUser
+        //     return msg
         // })
 
         return user
