@@ -49,7 +49,7 @@ async function query(filterBy = {}) {
                 title: msg.aboutBug.title 
             }
 			delete msg.byUserId
-			delete msg.aboutUserId
+			delete msg.aboutBugId
 			return msg
 		})
 
@@ -68,9 +68,9 @@ async function remove(msgId) {
 		const criteria = { _id: ObjectId.createFromHexString(msgId) }
 
         // remove only if user is owner/admin
-		// if (!loggedinUser.isAdmin) {
-        //     criteria.byUserId = ObjectId.createFromHexString(loggedinUser._id)
-        // }
+		if (!loggedinUser.isAdmin) {
+            criteria.byUserId = ObjectId.createFromHexString(loggedinUser._id)
+        }
 
         const { deletedCount } = await collection.deleteOne(criteria)
 		return deletedCount

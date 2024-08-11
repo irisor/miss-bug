@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { showSuccessMsg } from '../services/event-bus.service'
 
 export function AppFooter () {
 
@@ -12,6 +11,9 @@ export function AppFooter () {
             <p>
                 coffeerights to all
             </p>
+            {import.meta.env.VITE_LOCAL ? 
+                <span className="local-services">Local Services</span> : 
+                <span className="remote-services">Remote Services</span>}
         </footer>
     )
 

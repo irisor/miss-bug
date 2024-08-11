@@ -1,14 +1,9 @@
 
-import Axios from "axios"
-// import { utilService } from "../../services/util.service.js"
+import { httpService } from "../http.service"
 
-const axios = Axios.create({
-    withCredentials: true
-})
-
-const BASE_URL = (process.env.NODE_ENV !== 'development') ?
-    '/api/bug' :
-    '//localhost:3030/api/bug'
+// const BASE_URL = (process.env.NODE_ENV !== 'development') ?
+//     '/api/bug' :
+//     '//localhost:3030/api/bug'
 // const BASE_URL = !utilService.isDevelopment() ?
 //     '/api/bug' :
 //     '//localhost:3030/api/bug'
@@ -32,7 +27,9 @@ async function query(filterBy = {}) {
                 filterByToSend[key] = filterByToSend[key].join(',')
             }
         })
-        let { data: bugs } = await axios.get(BASE_URL, { params: filterByToSend })
+
+        let bugs = await httpService.get('bug', { params: filterByToSend })
+        // let { data: bugs } = await axios.get(BASE_URL, { params: filterByToSend })
         return bugs
     } catch (err) {
         console.log('err:', err)
@@ -41,7 +38,8 @@ async function query(filterBy = {}) {
 }
 async function getById(bugId) {
     try {
-        let { data: bug } = await axios.get(BASE_URL + '/' + bugId)
+        let bug = await httpService.get(`bug/${bugId}`)
+        // let { data: bug } = await axios.get(BASE_URL + '/' + bugId)
         return bug
     } catch (err) {
         console.log('err:', err)
@@ -50,7 +48,8 @@ async function getById(bugId) {
 }
 async function remove(bugId) {
     try {
-        let { data } = await axios.delete(`${BASE_URL}/${bugId}`)
+        let data = await httpService.delete(`bug/${bugId}`)
+        // let { data } = await axios.delete(`${BASE_URL}/${bugId}`)
         return data
     } catch (err) {
         console.log('err:', err)
@@ -61,11 +60,12 @@ async function save(bug) {
     try {
         let savedBug
         if (bug._id) {
-            savedBug = await axios.put(`${BASE_URL}/${bug._id}`, bug)
+            savedBug = await httpService.put(`bug/${bug._id}`, bug)
         } else {
-            savedBug = await axios.post(`${BASE_URL}`, bug)
+            savedBug = await httpService.post(`bug`, bug)
         }
-        return savedBug.data
+        // return savedBug.data
+        return savedBug
     } catch (err) {
         console.log('err:', err)
         throw err
@@ -74,7 +74,7 @@ async function save(bug) {
 
 async function getLabels() {
     try {
-        const { data: labels } = await axios.get(BASE_URL + '/labels')
+        const labels = await httpService.get('bug/labels')
         return labels
     } catch (err) {
         console.log('err:', err)
@@ -84,7 +84,7 @@ async function getLabels() {
 
 async function getPdf() {
     try {
-        const { data } = await axios.get(BASE_URL + '/pdf', { responseType: 'blob' })
+        const data = await httpService.get('bug/pdf', { responseType: 'blob' })
         const url = window.URL.createObjectURL(new Blob([data]));
         const link = document.createElement('a');
         link.href = url;

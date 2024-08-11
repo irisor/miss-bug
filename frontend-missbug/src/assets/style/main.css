@@ -12,6 +12,7 @@
 
 /* Components */
 
+@import "cmps/list.css";
 @import "cmps/BugFilter.css";
 @import "cmps/AppHeader.css";
 @import "cmps/AppFooter.css";
@@ -23,7 +24,9 @@
 @import "cmps/BugDetails.css";
 @import "cmps/LoginSignup.css";
 @import "cmps/UserList.css";
-
+@import "cmps/MsgEdit.css";
+@import "cmps/MsgList.css";
+@import "cmps/MsgPreview.css";
 
 .main-app {
     display: flex;

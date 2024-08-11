@@ -1,7 +1,10 @@
 import { bugService as remoteService } from './bug.service.js'
 import { bugService as localService } from './bug.service.local.js'
+const { DEV, VITE_LOCAL } = import.meta.env
 
-const isRemote = true
+
+let isRemote = VITE_LOCAL !== 'true'
+isRemote = true
 
 const service = isRemote ? remoteService : localService
 
@@ -32,3 +35,5 @@ function getDefaultFilter() {
         pageIdx: undefined,
     }
 }
+
+if (DEV) window.bugService = bugService

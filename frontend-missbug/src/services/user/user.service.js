@@ -1,22 +1,6 @@
-import Axios from 'axios'
-import { utilService } from '../../services/util.service'
-
-let axios = Axios.create({
-    withCredentials: true,
-})
+import { httpService } from "../http.service"
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
-
-// const BASE_URL = (import.meta.env.DEV !== 'development') ?
-//     '/api/' :
-//     '//localhost:3030/api/'
-const BASE_URL = !utilService.isDevelopment() ?
-    '/api/' :
-    '//localhost:3030/api/'
-// const BASE_URL = '//localhost:3030/api/'
-
-const BASE_USER_URL = BASE_URL + 'user/'
-const BASE_AUTH_URL = BASE_URL + 'auth/'
 
 export const userService = {
     login,
@@ -35,17 +19,17 @@ export const userService = {
 window.userService = userService
 
 async function query() {
-    const { data: users } = await axios.get(BASE_USER_URL)
+    const users = await httpService.get('user')
     return users
 }
 
 async function getById(userId) {
-    const { data: user } = await axios.get(BASE_USER_URL + userId)
+    const user = await httpService.get(`user/${userId}`)
     return user
 }
 
 async function remove(userId) {
-    const { data: user } = await axios.delete(BASE_USER_URL + userId)
+    const user = await httpService.delete(`user/${userId}`)
     return user
 }
 
@@ -53,13 +37,13 @@ async function update(userToUpdate) {
     // const user = await getById(userToUpdate.id)
     // console.log('user', user)
 
-    const { data: updatedUser } = await axios.put(BASE_USER_URL, userToUpdate)
+    const updatedUser = await httpService.put('user', userToUpdate)
     if (getLoggedinUser().id === updatedUser.id) saveLocalUser(updatedUser)
     return updatedUser
 }
 
 async function login(credentials) {
-    const { data: user } = await axios.post(BASE_AUTH_URL + 'login', credentials)
+    const user = await httpService.post('auth/login', credentials)
 
     if (user) {
         return saveLocalUser(user)
@@ -67,12 +51,12 @@ async function login(credentials) {
 }
 
 async function signup(credentials) {
-    const { data: user } = await axios.post(BASE_AUTH_URL + 'signup', credentials)
+    const user = await httpService.post('auth/signup', credentials)
     return saveLocalUser(user)
 }
 
 async function logout() {
-    await axios.post(BASE_AUTH_URL + 'logout')
+    await httpService.post('auth/logout')
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
 }
 
