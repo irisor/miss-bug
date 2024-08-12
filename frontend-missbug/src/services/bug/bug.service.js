@@ -28,7 +28,7 @@ async function query(filterBy = {}) {
             }
         })
 
-        let bugs = await httpService.get('bug', { params: filterByToSend })
+        let bugs = await httpService.get('bug', filterByToSend )
         // let { data: bugs } = await axios.get(BASE_URL, { params: filterByToSend })
         return bugs
     } catch (err) {

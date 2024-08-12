@@ -30,7 +30,8 @@ async function query(filterBy) {
         const collection = await dbService.getCollection('bug')
         let bugCursor = await collection.find(criteria, { sort })
 
-        if (filterBy?.pageIdx !== undefined && !isNaN(filterBy.pageIdx)) {
+        if (filterBy?.pageIdx !== undefined) {
+        // if (filterBy?.pageIdx !== undefined && !isNaN(filterBy.pageIdx)) {
             bugCursor.skip(filterBy.pageIdx * PAGE_SIZE).limit(PAGE_SIZE)
         }
 
